@@ -1,4 +1,4 @@
-package ru.yandex.javacource.levin.schedule.java.Task;
+package ru.yandex.javacource.levin.schedule.java.task;
 
 public enum StatusOfTask {
     NEW,

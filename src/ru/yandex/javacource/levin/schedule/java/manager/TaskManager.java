@@ -1,9 +1,9 @@
-package ru.yandex.javacource.levin.schedule.java.Manager;
+package ru.yandex.javacource.levin.schedule.java.manager;
 
-import ru.yandex.javacource.levin.schedule.java.Task.Epic;
-import ru.yandex.javacource.levin.schedule.java.Task.StatusOfTask;
-import ru.yandex.javacource.levin.schedule.java.Task.SubTask;
-import ru.yandex.javacource.levin.schedule.java.Task.Task;
+import ru.yandex.javacource.levin.schedule.java.task.Epic;
+import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
+import ru.yandex.javacource.levin.schedule.java.task.SubTask;
+import ru.yandex.javacource.levin.schedule.java.task.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +30,6 @@ public class TaskManager {
     public void createEpic(Epic epic) {
         int id = generateId();
         epic.setId(id);
-        tasks.put(id, epic);
         epics.put(id, epic);
     }
 
@@ -77,7 +76,11 @@ public class TaskManager {
         epics.clear();
     }
 
-    public void dealeateSubtasks() {
+    public void deleteSubtasks() {
+        for (Epic epic : epics.values()) {
+            epic.cleanSubtaskIds();
+            updateEpicStatus(epic.getId());
+        }
         subtasks.clear();
     }
 
@@ -117,40 +120,42 @@ public class TaskManager {
         savedEpic.setDescription(epic.getDescription());
     }
 
-    public void removeTaskById(int id) {
-        tasks.remove(id);
-    }
-
-    public void removeEpicById(int id) {
-        Epic epic = epics.get(id);
+    public void updateSubtask(SubTask subtask) {
+        int id = subtask.getId();
+        int epicId = subtask.getEpicId();
+        SubTask savedSubtask = subtasks.get(id);
+        if (savedSubtask == null) {
+            return;
+        }
+        final Epic epic = epics.get(epicId);
         if (epic == null) {
             return;
         }
-        for (Integer subtaskId : epic.getSubtasks()) {
+        subtasks.put(id, subtask);
+        updateEpicStatus(epicId);
+    }
+
+    public void deleteTaskById(int id) {
+        tasks.remove(id);
+    }
+
+    public void deleteEpic(int id) {
+        Epic epic = epics.remove(id);
+        if (epic == null) {
+            return;
+        }
+        for (Integer subtaskId : epic.getSubtaskIds()) {
             subtasks.remove(subtaskId);
-            tasks.remove(subtaskId);
         }
-        epics.remove(id);
-        tasks.remove(id);
     }
 
-    public void removeSubTaskById(int subtaskId) {
-        SubTask subTask = subtasks.get(subtaskId);
-        if (subTask == null) {
+    public void deleteSubtask(int id) {
+        SubTask subtask = subtasks.remove(id);
+        if (subtask == null) {
             return;
         }
-
-        int epicId = subTask.getEpicId();
-        Epic epic = epics.get(epicId);
-        if (epic == null) {
-            return;
-        }
-
-        subtasks.remove(subtaskId);
-        tasks.remove(subtaskId);
-
-        epic.getSubtasks().remove(Integer.valueOf(subtaskId));
-
+        Epic epic = epics.get(subtask.getEpicId());
+        epic.removeSubtask(id);  // нужено сделать метод в ЭПИК
         updateEpicStatus(epic.getId());
     }
 

@@ -1,10 +1,10 @@
 package ru.yandex.javacource.levin.schedule.java;
 
-import ru.yandex.javacource.levin.schedule.java.Manager.TaskManager;
-import ru.yandex.javacource.levin.schedule.java.Task.Epic;
-import ru.yandex.javacource.levin.schedule.java.Task.StatusOfTask;
-import ru.yandex.javacource.levin.schedule.java.Task.SubTask;
-import ru.yandex.javacource.levin.schedule.java.Task.Task;
+import ru.yandex.javacource.levin.schedule.java.manager.TaskManager;
+import ru.yandex.javacource.levin.schedule.java.task.Epic;
+import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
+import ru.yandex.javacource.levin.schedule.java.task.SubTask;
+import ru.yandex.javacource.levin.schedule.java.task.Task;
 
 public class Main {
 
@@ -19,16 +19,16 @@ public class Main {
         Epic epic1 = new Epic("ЭПИК", "ЭТО ПЕРВЫЙ ЭПИК", StatusOfTask.NEW);
         taskManager.createEpic(epic1);
 
-        SubTask subTask1 = new SubTask("Первая сабтаска", "Это первая сабтаска", StatusOfTask.IN_PROGRESS, epic1);
+        SubTask subTask1 = new SubTask("Первая сабтаска", "Это первая сабтаска", StatusOfTask.IN_PROGRESS, epic1.getId());
         taskManager.createSubtask(subTask1);
 
-        SubTask subTask2 = new SubTask("Вторая сабтаска", "Это вторая сабтаска", StatusOfTask.IN_PROGRESS, epic1);
+        SubTask subTask2 = new SubTask("Вторая сабтаска", "Это вторая сабтаска", StatusOfTask.IN_PROGRESS, epic1.getId());
         taskManager.createSubtask(subTask2);
 
         Epic epic2 = new Epic("epic - 2", "второй epic", StatusOfTask.NEW);
         taskManager.createEpic(epic2);
 
-        SubTask subTask3 = new SubTask("subtask", "it is new subtask", StatusOfTask.NEW, epic2);
+        SubTask subTask3 = new SubTask("subtask", "it is new subtask", StatusOfTask.NEW, epic2.getId());
         taskManager.createSubtask(subTask3);
 
         Task task2 = new Task("task - 2", "вторая таска", StatusOfTask.NEW);
@@ -36,11 +36,11 @@ public class Main {
 
 
 
-        taskManager.removeSubTaskById(subTask1.getId());
+        taskManager.deleteSubtask(subTask1.getId());
         System.out.println(taskManager.getEpic(epic1.getId()));
 
 
-        taskManager.removeSubTaskById(subTask2.getId());
+        taskManager.deleteSubtask(subTask2.getId());
         System.out.println( taskManager.getEpic(epic1.getId()));
 
 
