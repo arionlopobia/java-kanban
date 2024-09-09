@@ -1,16 +1,16 @@
 package ru.yandex.javacource.levin.schedule.java;
 
-import ru.yandex.javacource.levin.schedule.java.manager.TaskManager;
+import ru.yandex.javacource.levin.schedule.java.manager.*;
 import ru.yandex.javacource.levin.schedule.java.task.Epic;
 import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
 import ru.yandex.javacource.levin.schedule.java.task.SubTask;
 import ru.yandex.javacource.levin.schedule.java.task.Task;
 
 public class Main {
-
     public static void main(String[] args) {
         System.out.println("Поехали!");
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = Managers.getDefault();
+        HistoryManager historyManager = Managers.getDefaultHistory();
 
         // Создание задач и эпиков
         Task task1 = new Task("Первая таска", "я сделал таску", StatusOfTask.NEW);
@@ -36,24 +36,12 @@ public class Main {
 
 
 
-        taskManager.deleteSubtask(subTask1.getId());
-        System.out.println(taskManager.getEpic(epic1.getId()));
-
-
-        taskManager.deleteSubtask(subTask2.getId());
-        System.out.println( taskManager.getEpic(epic1.getId()));
+        taskManager.getEpic(epic1.getId());
+        taskManager.getTask(task1.getId());
+        taskManager.getSubtask(subTask1.getId());
 
 
 
-        System.out.println("Все задачи: " + taskManager.getTasks());
-        System.out.println("Все эпики: " + taskManager.getEpics());
-        System.out.println("Все подзадачи: " + taskManager.getSubtasks());
-
-
-        taskManager.removeAllTask();
-        System.out.println("После удаления всех задач:");
-        System.out.println("Все задачи: " + taskManager.getTasks());
-        System.out.println("Все эпики: " + taskManager.getEpics());
-        System.out.println("Все подзадачи: " + taskManager.getSubtasks());
+        System.out.println(historyManager.getHistory());
     }
 }
