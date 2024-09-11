@@ -1,10 +1,11 @@
-package ru.yandex.javacource.levin.schedule.java.manager;
+package ru.yandex.javacource.levin.schedule.java.src.manager;
 
-import ru.yandex.javacource.levin.schedule.java.task.Epic;
-import ru.yandex.javacource.levin.schedule.java.task.SubTask;
-import ru.yandex.javacource.levin.schedule.java.task.Task;
+import ru.yandex.javacource.levin.schedule.java.src.task.Epic;
+import ru.yandex.javacource.levin.schedule.java.src.task.SubTask;
+import ru.yandex.javacource.levin.schedule.java.src.task.Task;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 public interface TaskManager {
     void createTask(Task task);
@@ -13,11 +14,11 @@ public interface TaskManager {
 
     Integer createSubtask(SubTask subtask);
 
-    ArrayList<Task> getTasks();
+    List<Task> getTasks();
 
-    ArrayList<Epic> getEpics();
+    List<Epic> getEpics();
 
-    ArrayList<SubTask> getSubtasks();
+    List<SubTask> getSubtasks();
 
     void removeAllTask();
 
@@ -45,7 +46,7 @@ public interface TaskManager {
 
     void deleteSubtask(int id);
 
-    ArrayList<SubTask> getSubTasksForEpic(int epicId);
+    List<SubTask> getSubTasksForEpic(int epicId);
 
 
 

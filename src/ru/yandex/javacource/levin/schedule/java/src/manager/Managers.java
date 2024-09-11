@@ -1,4 +1,4 @@
-package ru.yandex.javacource.levin.schedule.java.manager;
+package ru.yandex.javacource.levin.schedule.java.src.manager;
 
 public class Managers {
     private static final HistoryManager historyManager = new InMemoryHistoryManager();

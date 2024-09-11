@@ -1,11 +1,14 @@
-package ru.yandex.javacource.levin.schedule.java.manager;
+package ru.yandex.javacource.levin.schedule.java.test;
 
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
-import ru.yandex.javacource.levin.schedule.java.task.Epic;
-import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
-import ru.yandex.javacource.levin.schedule.java.task.SubTask;
-import ru.yandex.javacource.levin.schedule.java.task.Task;
+import ru.yandex.javacource.levin.schedule.java.src.manager.InMemoryTaskManager;
+import ru.yandex.javacource.levin.schedule.java.src.manager.Managers;
+import ru.yandex.javacource.levin.schedule.java.src.manager.TaskManager;
+import ru.yandex.javacource.levin.schedule.java.src.task.Epic;
+import ru.yandex.javacource.levin.schedule.java.src.task.StatusOfTask;
+import ru.yandex.javacource.levin.schedule.java.src.task.SubTask;
+import ru.yandex.javacource.levin.schedule.java.src.task.Task;
 
 import static org.junit.jupiter.api.Assertions.*;
 

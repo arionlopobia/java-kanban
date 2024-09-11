@@ -1,4 +1,4 @@
-package ru.yandex.javacource.levin.schedule.java.task;
+package ru.yandex.javacource.levin.schedule.java.src.task;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,6 @@ public class Epic extends Task {
     }
 
 
-
     @Override
     public String toString() {
         return "{" +
@@ -38,13 +37,24 @@ public class Epic extends Task {
         subtaskIds.remove(Integer.valueOf(id));
     }
 
-    public Integer[] getSubtaskIds() {
-        Integer[] result = new Integer[subtaskIds.size()];
-        subtaskIds.toArray(result);
-        return result;
+    public ArrayList<Integer> getSubtaskIds() {
+        return new ArrayList<>(subtaskIds);
     }
 
     public void cleanSubtaskIds() {
         subtaskIds.clear();
     }
+
+    public void setSubtaskIds(ArrayList<Integer> subtaskIds) {
+        this.subtaskIds = new ArrayList<>(subtaskIds);
+    }
+
+    public StatusOfTask getEpicStatus() {
+        return status;
+    }
+
+    public void setEpicStatus(StatusOfTask status) {
+        this.status = status;
+    }
 }
+
