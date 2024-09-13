@@ -1,9 +1,10 @@
-package ru.yandex.javacource.levin.schedule.java.src.task;
+package ru.yandex.javacource.levin.schedule.java.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task {
-    public ArrayList<Integer> subtaskIds;
+    public List<Integer> subtaskIds;
 
     public Epic(String name, String description, StatusOfTask status) {
         super(name, description, status);
@@ -17,7 +18,7 @@ public class Epic extends Task {
         }
     }
 
-    public ArrayList<Integer> getSubtasks() {
+    public List<Integer> getSubtasks() {
         return subtaskIds;
     }
 

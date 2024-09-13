@@ -1,12 +1,12 @@
 package ru.yandex.javacource.levin.schedule.java;
 
-import ru.yandex.javacource.levin.schedule.java.src.manager.HistoryManager;
-import ru.yandex.javacource.levin.schedule.java.src.manager.Managers;
-import ru.yandex.javacource.levin.schedule.java.src.manager.TaskManager;
-import ru.yandex.javacource.levin.schedule.java.src.task.Epic;
-import ru.yandex.javacource.levin.schedule.java.src.task.StatusOfTask;
-import ru.yandex.javacource.levin.schedule.java.src.task.SubTask;
-import ru.yandex.javacource.levin.schedule.java.src.task.Task;
+import ru.yandex.javacource.levin.schedule.java.manager.HistoryManager;
+import ru.yandex.javacource.levin.schedule.java.manager.Managers;
+import ru.yandex.javacource.levin.schedule.java.manager.TaskManager;
+import ru.yandex.javacource.levin.schedule.java.task.Epic;
+import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
+import ru.yandex.javacource.levin.schedule.java.task.SubTask;
+import ru.yandex.javacource.levin.schedule.java.task.Task;
 
 public class Main {
     public static void main(String[] args) {

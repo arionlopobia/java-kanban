@@ -1,9 +1,9 @@
-package ru.yandex.javacource.levin.schedule.java.src.manager;
+package ru.yandex.javacource.levin.schedule.java.manager;
 
-import ru.yandex.javacource.levin.schedule.java.src.task.Epic;
-import ru.yandex.javacource.levin.schedule.java.src.task.StatusOfTask;
-import ru.yandex.javacource.levin.schedule.java.src.task.SubTask;
-import ru.yandex.javacource.levin.schedule.java.src.task.Task;
+import ru.yandex.javacource.levin.schedule.java.task.Epic;
+import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
+import ru.yandex.javacource.levin.schedule.java.task.SubTask;
+import ru.yandex.javacource.levin.schedule.java.task.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -221,27 +221,27 @@ public class InMemoryTaskManager implements TaskManager {
         }
         ArrayList<SubTask> subTasks = getSubTasksForEpic(epicId);
         if (subTasks.isEmpty()) {
-            epic.status = StatusOfTask.NEW;
+            epic.setStatus(StatusOfTask.NEW);
             return;
         }
 
         boolean allDone = true;
         boolean allNew = true;
         for (SubTask subTask : subTasks) {
-            if (subTask.status != StatusOfTask.DONE) {
+            if (subTask.getStatus() != StatusOfTask.DONE) {
                 allDone = false;
             }
-            if (subTask.status != StatusOfTask.NEW) {
+            if (subTask.getStatus() != StatusOfTask.NEW) {
                 allNew = false;
             }
         }
 
         if (allDone) {
-            epic.status = StatusOfTask.DONE;
+            epic.setStatus(StatusOfTask.DONE);
         } else if (allNew) {
-            epic.status = StatusOfTask.NEW;
+            epic.setStatus(StatusOfTask.NEW);
         } else {
-            epic.status = StatusOfTask.IN_PROGRESS;
+            epic.setStatus(StatusOfTask.IN_PROGRESS);
         }
     }
 

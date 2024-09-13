@@ -1,4 +1,4 @@
-package ru.yandex.javacource.levin.schedule.java.src.task;
+package ru.yandex.javacource.levin.schedule.java.task;
 
 public class SubTask extends Task {
     private int epicId;

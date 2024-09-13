@@ -1,9 +1,9 @@
-package ru.yandex.javacource.levin.schedule.java.test;
+package ru.yandex.javacource.levin.schedule.java.manager;
 
 import org.junit.jupiter.api.Test;
-import ru.yandex.javacource.levin.schedule.java.src.manager.HistoryManager;
-import ru.yandex.javacource.levin.schedule.java.src.manager.Managers;
-import ru.yandex.javacource.levin.schedule.java.src.manager.TaskManager;
+import ru.yandex.javacource.levin.schedule.java.manager.HistoryManager;
+import ru.yandex.javacource.levin.schedule.java.manager.Managers;
+import ru.yandex.javacource.levin.schedule.java.manager.TaskManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 

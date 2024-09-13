@@ -1,4 +1,4 @@
-package ru.yandex.javacource.levin.schedule.java.src.task;
+package ru.yandex.javacource.levin.schedule.java.task;
 
 import java.util.Objects;
 
@@ -7,7 +7,7 @@ public class Task {
     protected int id;
     protected String name;
     protected String description;
-    public StatusOfTask status;
+    protected StatusOfTask status;
 
 
     public Task(String name, String description, StatusOfTask status) {
@@ -41,6 +41,14 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public StatusOfTask getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusOfTask status) {
+        this.status = status;
     }
 
     @Override

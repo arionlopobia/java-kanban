@@ -1,6 +1,6 @@
-package ru.yandex.javacource.levin.schedule.java.src.manager;
+package ru.yandex.javacource.levin.schedule.java.manager;
 
-import ru.yandex.javacource.levin.schedule.java.src.task.Task;
+import ru.yandex.javacource.levin.schedule.java.task.Task;
 
 import java.util.List;
 
