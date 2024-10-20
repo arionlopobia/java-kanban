@@ -14,6 +14,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public InMemoryHistoryManager() {
         this.history = new ArrayList<>();
     }
+
     public class Node {
         Task task;
         Node prev;
