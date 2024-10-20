@@ -1,16 +1,13 @@
 package ru.yandex.javacource.levin.schedule.java.manager;
 
 import org.junit.jupiter.api.Test;
-import ru.yandex.javacource.levin.schedule.java.manager.HistoryManager;
-import ru.yandex.javacource.levin.schedule.java.manager.Managers;
-import ru.yandex.javacource.levin.schedule.java.manager.TaskManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagersTest {
 
     @Test
-    void  shouldReturnInitializedTaskManager(){
+    void shouldReturnInitializedTaskManager() {
         TaskManager taskManager = Managers.getDefault();
 
         assertNotNull(taskManager);
@@ -21,7 +18,7 @@ class ManagersTest {
 
 
     @Test
-    void  shouldReturnInitializedHistoryManager(){
+    void shouldReturnInitializedHistoryManager() {
         HistoryManager historyManager = Managers.getDefaultHistory();
 
         assertNotNull(historyManager);

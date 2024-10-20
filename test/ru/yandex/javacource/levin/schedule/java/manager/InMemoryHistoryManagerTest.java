@@ -2,7 +2,6 @@ package ru.yandex.javacource.levin.schedule.java.manager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.yandex.javacource.levin.schedule.java.manager.InMemoryHistoryManager;
 import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
 import ru.yandex.javacource.levin.schedule.java.task.Task;
 
@@ -20,27 +19,50 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void shouldPreserveTaskStateWhenAddedToHistory() {
-        // Создаем задачу
         Task originalTask = new Task("Task 1", "Description 1", StatusOfTask.NEW);
         originalTask.setId(1);
 
-        // Добавляем задачу в историю
         historyManager.addHistory(originalTask);
 
-        // Изменяем оригинальную задачу
         originalTask.setName("Task 1 Updated");
         originalTask.setDescription("Description 1 Updated");
 
-        // Получаем задачу из истории
         List<Task> history = historyManager.getHistory();
         Task taskFromHistory = history.get(0);
 
-        // Проверяем, что задача в истории не изменилась
         assertEquals("Task 1", taskFromHistory.getName());
         assertEquals("Description 1", taskFromHistory.getDescription());
 
-        // Убеждаемся, что это разные объекты
         assertNotSame(originalTask, taskFromHistory);
     }
-}
 
+
+    @Test
+    public void shouldRemoveTaskFromHistory() {
+        Task task1 = new Task("Task 1", "Description 1", StatusOfTask.NEW);
+        task1.setId(1);
+        Task task2 = new Task("Task 2", "Description 2", StatusOfTask.NEW);
+        task2.setId(2);
+        historyManager.addHistory(task1);
+        historyManager.addHistory(task2);
+
+        historyManager.remove(1);
+
+        List<Task> history = historyManager.getHistory();
+        assertEquals(1, history.size());
+        assertEquals(2, history.get(0).getId());
+    }
+
+    @Test
+    public void shouldNotAddDuplicateTasksToHistory() {
+        Task task = new Task("Task 1", "Description 1", StatusOfTask.NEW);
+        task.setId(1);
+
+        historyManager.addHistory(task);
+        historyManager.addHistory(task);
+
+        List<Task> history = historyManager.getHistory();
+        assertEquals(1, history.size());
+        assertEquals(1, history.get(0).getId());
+    }
+}

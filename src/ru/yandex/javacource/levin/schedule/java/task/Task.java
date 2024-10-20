@@ -16,6 +16,12 @@ public class Task {
         this.status = status;
     }
 
+    public Task copy() {
+        Task copy = new Task(this.name, this.description, this.status);
+        copy.setId(this.id);
+        return copy;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
