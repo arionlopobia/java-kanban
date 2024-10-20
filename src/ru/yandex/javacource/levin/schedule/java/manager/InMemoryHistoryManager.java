@@ -14,6 +14,15 @@ public class InMemoryHistoryManager implements HistoryManager {
     public InMemoryHistoryManager() {
         this.history = new ArrayList<>();
     }
+    public class Node {
+        Task task;
+        Node prev;
+        Node next;
+
+        public Node(Task task) {
+            this.task = task;
+        }
+    }
 
     private final Map<Integer, Node> nodeMap = new HashMap<>();
     private Node head;
@@ -26,7 +35,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
 
         if (nodeMap.containsKey(task.getId())) {
-            removeNode(nodeMap.get(task.getId()));
+            remove(task.getId());
         }
 
         Node newNode = new Node(task.copy());
