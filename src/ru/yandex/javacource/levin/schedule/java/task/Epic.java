@@ -6,8 +6,8 @@ import java.util.List;
 public class Epic extends Task {
     public List<Integer> subtaskIds;
 
-    public Epic(String name, String description, StatusOfTask status) {
-        super(name, description, status);
+    public Epic(String name, String description, StatusOfTask status, TypeOfTask typeOfTask) {
+        super(name, description, status, typeOfTask);
         this.subtaskIds = new ArrayList<>();
     }
 
@@ -22,6 +22,10 @@ public class Epic extends Task {
         return subtaskIds;
     }
 
+    @Override
+    public String toCSV() {
+        return super.toCSV();
+    }
 
     @Override
     public String toString() {

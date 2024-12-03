@@ -16,7 +16,7 @@ class TaskTest {
         manager = new InMemoryTaskManager();
 
 
-        Task task = new Task("Task 1", "Description 1", StatusOfTask.NEW);
+        Task task = new Task("Task 1", "Description 1", StatusOfTask.NEW, TypeOfTask.TASK);
         manager.createTask(task);
         int taskId = task.getId(); // Получаем id задачи
 

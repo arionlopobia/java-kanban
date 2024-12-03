@@ -16,11 +16,11 @@ class SubTaskTest {
 
         manager = new InMemoryTaskManager();
 
-        Epic epic = new Epic("Epic 1", "Description", StatusOfTask.NEW);
+        Epic epic = new Epic("Epic 1", "Description", StatusOfTask.NEW,TypeOfTask.EPIC);
         manager.createEpic(epic);
 
 
-        SubTask subTask = new SubTask("Subtask 1", "Description 1", StatusOfTask.NEW, 1);
+        SubTask subTask = new SubTask("Subtask 1", "Description 1", StatusOfTask.NEW, TypeOfTask.SUB_TASK, 1);
         manager.createSubtask(subTask);
         int subTaskId = subTask.getId(); // Получаем id задачи
 

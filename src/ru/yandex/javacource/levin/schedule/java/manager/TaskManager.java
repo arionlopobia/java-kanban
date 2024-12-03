@@ -40,7 +40,7 @@ public interface TaskManager {
 
     void updateSubtask(SubTask subtask);
 
-    void deleteTaskById(int id);
+    void deleteTask(int id);
 
     void deleteEpic(int id);
 

@@ -17,7 +17,7 @@ class EpicTest {
         manager = new InMemoryTaskManager();
 
 
-        Epic epic = new Epic("Epic 1", "Description 1", StatusOfTask.NEW);
+        Epic epic = new Epic("Epic 1", "Description 1", StatusOfTask.NEW, TypeOfTask.EPIC);
         manager.createEpic(epic);
         int epicId = epic.getId(); // Получаем id задачи
 
@@ -31,7 +31,7 @@ class EpicTest {
 
     @Test
     void CannotAddSelfAsSubtaskTest() {
-        Epic epic = new Epic("Epic 1", "It is my first Epic", StatusOfTask.NEW);
+        Epic epic = new Epic("Epic 1", "It is my first Epic", StatusOfTask.NEW, TypeOfTask.EPIC);
         int epicId = epic.getId();
 
         epic.addSubtaskId(epicId);
