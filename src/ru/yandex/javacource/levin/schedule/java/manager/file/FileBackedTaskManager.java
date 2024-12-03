@@ -27,10 +27,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 fileWriter.write(epic.toCSV() + "\n");
 
                 for (SubTask subtask : getSubtasks()) {
-                    if(subtask.getEpicId() == epic.getId()) {
+                    if (subtask.getEpicId() == epic.getId()) {
                         fileWriter.write(subtask.toCSV() + "\n");
                     }
-
                 }
             }
 
@@ -42,16 +41,16 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public static FileBackedTaskManager loadFromFile(File file) {
         FileBackedTaskManager manager = new FileBackedTaskManager(file);
 
-        try{
+        try {
             String fileContent = Files.readString(file.toPath());
 
             String[] lines = fileContent.split("\n");
 
             for (int i = 1; i < lines.length; i++) {
                 String line = lines[i].trim();
-                if(!line.isEmpty()){
+                if (!line.isEmpty()) {
                     Task task = Task.fromCSV(line);
-                    switch (task.getTypeOfTask()){
+                    switch (task.getTypeOfTask()) {
                         case TASK:
                             manager.createTask(task);
                             break;
@@ -69,7 +68,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
         return manager;
     }
-
 
     @Override
     public void createTask(Task task) {
@@ -98,13 +96,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public void updateEpic(Epic epic) {
-        super.updateTask(epic);
+        super.updateEpic(epic);
         save();
     }
 
     @Override
     public void updateSubtask(SubTask subtask) {
-        super.updateTask(subtask);
+        super.updateSubtask(subtask);
         save();
     }
 
@@ -126,3 +124,4 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 }
+
