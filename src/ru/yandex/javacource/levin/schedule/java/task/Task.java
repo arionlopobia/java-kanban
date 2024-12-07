@@ -8,18 +8,18 @@ public class Task {
     protected String name;
     protected String description;
     protected StatusOfTask status;
-    protected TypeOfTask typeOfTask;
+    protected TaskType taskType;
 
 
-    public Task(String name, String description, StatusOfTask status, TypeOfTask typeOfTask) {
+    public Task(String name, String description, StatusOfTask status, TaskType taskType) {
         this.name = name;
         this.description = description;
         this.status = status;
-        this.typeOfTask = typeOfTask;
+        this.taskType = taskType;
     }
 
     public Task copy() {
-        Task copy = new Task(this.name, this.description, this.status, this.typeOfTask);
+        Task copy = new Task(this.name, this.description, this.status, this.taskType);
         copy.setId(this.id);
         return copy;
     }
@@ -28,12 +28,9 @@ public class Task {
         this.id = id;
     }
 
-
-
     public int getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
@@ -59,39 +56,8 @@ public class Task {
         this.status = status;
     }
 
-    public TypeOfTask getTypeOfTask() {
-        return typeOfTask;
-    }
-
-    public String toCSV() {
-        return id + "," + typeOfTask + "," + name + "," + status + "," + description + ",";
-    }
-
-    public static Task fromCSV(String csv) {
-        String[] parts = csv.split(",");
-
-        int id = Integer.parseInt(parts[0]);
-        TypeOfTask typeOfTask = TypeOfTask.valueOf(parts[1]);
-        String name = parts[2];
-        StatusOfTask statusOfTask = StatusOfTask.valueOf(parts[3]);
-        String description = parts[4];
-
-        switch (typeOfTask) {
-            case TASK :
-                return new Task(name, description, statusOfTask, typeOfTask);
-
-            case EPIC:
-                return new Epic(name, description, statusOfTask, typeOfTask);
-
-            case SUB_TASK:
-                int epicId = Integer.parseInt(parts[5]);
-                return new SubTask(name, description,statusOfTask, typeOfTask, epicId);
-
-            default:
-                throw new IllegalArgumentException("Unknown task type: " + typeOfTask);
-        }
-
-
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     @Override

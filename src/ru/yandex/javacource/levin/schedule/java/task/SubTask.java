@@ -4,20 +4,14 @@ public class SubTask extends Task {
     private int epicId;
 
 
-    public SubTask(String name, String description, StatusOfTask status, TypeOfTask typeOfTask, int epicId) {
-        super(name, description, status, typeOfTask);
+    public SubTask(String name, String description, StatusOfTask status, TaskType taskType, int epicId) {
+        super(name, description, status, taskType);
         this.epicId = epicId;
     }
 
     public int getEpicId() {
         return epicId;
     }
-
-    @Override
-    public String toCSV() {
-        return id + "," + typeOfTask + "," + name + "," + status + "," + description + "," + epicId + ",";
-    }
-
 
     @Override
     public String toString() {

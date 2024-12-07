@@ -1,7 +1,7 @@
 package ru.yandex.javacource.levin.schedule.java.task;
 
-public enum TypeOfTask {
+public enum TaskType {
     TASK,
     EPIC,
-    SUB_TASK
+    SUBTASK
 }

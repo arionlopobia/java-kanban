@@ -12,7 +12,7 @@ class InMemoryTaskManagerTest {
     @Test
     void ShouldAddAndFindTaskByIdTest() {
         InMemoryTaskManager manager = new InMemoryTaskManager();
-        Task task = new Task("Task1", "new Task1", StatusOfTask.NEW, TypeOfTask.TASK);
+        Task task = new Task("Task1", "new Task1", StatusOfTask.NEW, TaskType.TASK);
         manager.createTask(task);
 
         Task foundTask = manager.getTask(task.getId());
@@ -25,7 +25,7 @@ class InMemoryTaskManagerTest {
     @Test
     void ShouldAddAndFindEpicByIdTest() {
         InMemoryTaskManager manager = new InMemoryTaskManager();
-        Epic epic = new Epic("Epic 1 ", "new Epic 1", StatusOfTask.NEW, TypeOfTask.EPIC);
+        Epic epic = new Epic("Epic 1 ", "new Epic 1", StatusOfTask.NEW, TaskType.EPIC);
         manager.createEpic(epic);
 
         Epic foundEpic = manager.getEpic(epic.getId());
@@ -37,10 +37,10 @@ class InMemoryTaskManagerTest {
     @Test
     void ShouldAddAndFindSubTaskByIdTest() {
         InMemoryTaskManager manager = new InMemoryTaskManager();
-        Epic epic = new Epic("Epic 1 ", "new Epic 1", StatusOfTask.NEW, TypeOfTask.EPIC);
+        Epic epic = new Epic("Epic 1 ", "new Epic 1", StatusOfTask.NEW, TaskType.EPIC);
         manager.createEpic(epic);
 
-        SubTask subTask = new SubTask("Task1", "new Task1", StatusOfTask.NEW, TypeOfTask.SUB_TASK, epic.getId());
+        SubTask subTask = new SubTask("Task1", "new Task1", StatusOfTask.NEW, TaskType.SUBTASK, epic.getId());
         manager.createSubtask(subTask);
 
         SubTask foundSubtask = manager.getSubtask(subTask.getId());
@@ -54,7 +54,7 @@ class InMemoryTaskManagerTest {
     public void shouldPreserveTaskFieldsAfterAddition() {
         TaskManager manager = Managers.getDefault();
 
-        Task originalTask = new Task("Test Task", "Task Description", StatusOfTask.NEW, TypeOfTask.TASK);
+        Task originalTask = new Task("Test Task", "Task Description", StatusOfTask.NEW, TaskType.TASK);
         manager.createTask(originalTask);
 
         Task retrievedTask = manager.getTask(originalTask.getId());
@@ -69,10 +69,10 @@ class InMemoryTaskManagerTest {
     public void shouldRemoveSubtaskAndClearIdFromEpic() {
         InMemoryTaskManager manager = new InMemoryTaskManager();
 
-        Epic epic = new Epic("Epic 1", "Epic Description", StatusOfTask.NEW, TypeOfTask.EPIC);
+        Epic epic = new Epic("Epic 1", "Epic Description", StatusOfTask.NEW, TaskType.EPIC);
         manager.createEpic(epic);
 
-        SubTask subTask = new SubTask("SubTask 1", "SubTask Description", StatusOfTask.NEW, TypeOfTask.SUB_TASK, epic.getId());
+        SubTask subTask = new SubTask("SubTask 1", "SubTask Description", StatusOfTask.NEW, TaskType.SUBTASK, epic.getId());
         int subtaskId = manager.createSubtask(subTask);
 
         assertTrue(epic.getSubtaskIds().contains(subtaskId));
@@ -88,7 +88,7 @@ class InMemoryTaskManagerTest {
     public void shouldNotAffectTaskInManagerWhenFieldsAreChangedViaSetters() {
         InMemoryTaskManager manager = new InMemoryTaskManager();
 
-        Task task = new Task("Original Task", "Original Description", StatusOfTask.NEW, TypeOfTask.TASK);
+        Task task = new Task("Original Task", "Original Description", StatusOfTask.NEW, TaskType.TASK);
         manager.createTask(task);
 
         Task originalTask = manager.getTask(task.getId());

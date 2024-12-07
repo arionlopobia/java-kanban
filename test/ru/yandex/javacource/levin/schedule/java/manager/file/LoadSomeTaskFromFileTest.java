@@ -2,7 +2,7 @@ package ru.yandex.javacource.levin.schedule.java.manager.file;
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
 import ru.yandex.javacource.levin.schedule.java.task.Task;
-import ru.yandex.javacource.levin.schedule.java.task.TypeOfTask;
+import ru.yandex.javacource.levin.schedule.java.task.TaskType;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,9 +18,9 @@ public class LoadSomeTaskFromFileTest {
 
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(tempFile);
 
-        Task task1 = new Task("Task1", "Description 1", StatusOfTask.NEW, TypeOfTask.TASK);
-        Task task2 = new Task("Task2", "Description 2", StatusOfTask.NEW, TypeOfTask.TASK);
-        Task task3 = new Task("Task3", "Description 3", StatusOfTask.NEW, TypeOfTask.TASK);
+        Task task1 = new Task("Task1", "Description 1", StatusOfTask.NEW, TaskType.TASK);
+        Task task2 = new Task("Task2", "Description 2", StatusOfTask.NEW, TaskType.TASK);
+        Task task3 = new Task("Task3", "Description 3", StatusOfTask.NEW, TaskType.TASK);
 
         fileBackedTaskManager.createTask(task1);
         fileBackedTaskManager.createTask(task2);
@@ -34,8 +34,8 @@ public class LoadSomeTaskFromFileTest {
 
         assertEquals(3, tasksFromFile.size(), "Колличество задач неверное");
 
-        assertEquals(task1.toCSV(), tasksFromFile.get(0).toCSV(), "Первая задача записана некорректно");
-        assertEquals(task2.toCSV(), tasksFromFile.get(1).toCSV(), "Вторая задача записана некорректно");
-        assertEquals(task3.toCSV(), tasksFromFile.get(2).toCSV(), "Третья задача записана некорректно");
+        assertEquals(FileBackedTaskManager.toString(task1), FileBackedTaskManager.toString(tasksFromFile.get(0)), "Первая задача записана некорректно");
+        assertEquals(FileBackedTaskManager.toString(task2), FileBackedTaskManager.toString(tasksFromFile.get(1)), "Вторая задача записана некорректно");
+        assertEquals(FileBackedTaskManager.toString(task3), FileBackedTaskManager.toString(tasksFromFile.get(2)), "Третья задача записана некорректно");
     }
 }
