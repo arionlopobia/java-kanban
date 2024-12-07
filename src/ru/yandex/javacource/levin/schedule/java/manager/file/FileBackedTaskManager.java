@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File autosaveFile;
-    String HEADER = "id,type,name,status,description,epic";
+    private static final String HEADER = "id,type,name,status,description,epic";
 
     public FileBackedTaskManager(File autosaveFile) {
         super();
