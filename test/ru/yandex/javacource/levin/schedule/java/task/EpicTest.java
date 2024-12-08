@@ -2,8 +2,6 @@ package ru.yandex.javacource.levin.schedule.java.task;
 
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.levin.schedule.java.manager.InMemoryTaskManager;
-import ru.yandex.javacource.levin.schedule.java.task.Epic;
-import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +15,7 @@ class EpicTest {
         manager = new InMemoryTaskManager();
 
 
-        Epic epic = new Epic("Epic 1", "Description 1", StatusOfTask.NEW);
+        Epic epic = new Epic("Epic 1", "Description 1", StatusOfTask.NEW, TaskType.EPIC);
         manager.createEpic(epic);
         int epicId = epic.getId(); // Получаем id задачи
 
@@ -31,7 +29,7 @@ class EpicTest {
 
     @Test
     void CannotAddSelfAsSubtaskTest() {
-        Epic epic = new Epic("Epic 1", "It is my first Epic", StatusOfTask.NEW);
+        Epic epic = new Epic("Epic 1", "It is my first Epic", StatusOfTask.NEW, TaskType.EPIC);
         int epicId = epic.getId();
 
         epic.addSubtaskId(epicId);

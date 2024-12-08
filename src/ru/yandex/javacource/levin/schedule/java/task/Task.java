@@ -8,16 +8,18 @@ public class Task {
     protected String name;
     protected String description;
     protected StatusOfTask status;
+    protected TaskType taskType;
 
 
-    public Task(String name, String description, StatusOfTask status) {
+    public Task(String name, String description, StatusOfTask status, TaskType taskType) {
         this.name = name;
         this.description = description;
         this.status = status;
+        this.taskType = taskType;
     }
 
     public Task copy() {
-        Task copy = new Task(this.name, this.description, this.status);
+        Task copy = new Task(this.name, this.description, this.status, this.taskType);
         copy.setId(this.id);
         return copy;
     }
@@ -26,12 +28,9 @@ public class Task {
         this.id = id;
     }
 
-
-
     public int getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
@@ -55,6 +54,10 @@ public class Task {
 
     public void setStatus(StatusOfTask status) {
         this.status = status;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     @Override
