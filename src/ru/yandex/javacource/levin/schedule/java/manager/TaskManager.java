@@ -48,5 +48,19 @@ public interface TaskManager {
 
     List<SubTask> getSubTasksForEpic(int epicId);
 
+    void addToPrioritizedTasks(Task task);
+
+    void removeFromPrioritizedTasks(Task task);
+
+    List<Task> getPrioritizedTasks();
+
+    boolean hasOverlap(Task task);
+
+    boolean hasAnyOverlaps();
+
+    Task getHighestPriorityTask();
+
+
+
 
 }

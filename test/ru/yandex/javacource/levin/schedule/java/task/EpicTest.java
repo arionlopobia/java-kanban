@@ -17,7 +17,7 @@ class EpicTest {
 
         Epic epic = new Epic("Epic 1", "Description 1", StatusOfTask.NEW, TaskType.EPIC);
         manager.createEpic(epic);
-        int epicId = epic.getId(); // Получаем id задачи
+        int epicId = epic.getId();
 
 
         Epic firstRetrievedTask = manager.getEpic(epicId);

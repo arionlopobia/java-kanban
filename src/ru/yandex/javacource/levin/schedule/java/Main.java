@@ -11,7 +11,7 @@ public class Main {
         TaskManager taskManager = Managers.getDefault();
         HistoryManager historyManager = Managers.getDefaultHistory();
 
-        // Создание задач и эпиков
+
         Task task1 = new Task("Первая таска", "я сделал таску", StatusOfTask.NEW, TaskType.TASK);
         taskManager.createTask(task1);
 

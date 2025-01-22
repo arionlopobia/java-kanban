@@ -16,7 +16,6 @@ class ManagersTest {
 
     }
 
-
     @Test
     void shouldReturnInitializedHistoryManager() {
         HistoryManager historyManager = Managers.getDefaultHistory();

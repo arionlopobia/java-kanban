@@ -19,8 +19,7 @@ class SubTaskTest {
 
         SubTask subTask = new SubTask("Subtask 1", "Description 1", StatusOfTask.NEW, TaskType.SUBTASK, 1);
         manager.createSubtask(subTask);
-        int subTaskId = subTask.getId(); // Получаем id задачи
-
+        int subTaskId = subTask.getId();
 
         SubTask firstRetrievedTask = manager.getSubtask(subTaskId);
         SubTask secondRetrievedTask = manager.getSubtask(subTaskId);

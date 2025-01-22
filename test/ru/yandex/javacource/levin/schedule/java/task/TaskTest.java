@@ -16,7 +16,7 @@ class TaskTest {
 
         Task task = new Task("Task 1", "Description 1", StatusOfTask.NEW, TaskType.TASK);
         manager.createTask(task);
-        int taskId = task.getId(); // Получаем id задачи
+        int taskId = task.getId();
 
 
         Task firstRetrievedTask = manager.getTask(taskId);

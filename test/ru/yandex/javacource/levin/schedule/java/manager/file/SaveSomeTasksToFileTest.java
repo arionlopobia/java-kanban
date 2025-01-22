@@ -16,7 +16,6 @@ public class SaveSomeTasksToFileTest {
 
     @Test
     public void testSaveSomeTasksToFile() throws IOException {
-        // Создаем временный файл для теста
         File tempFile = File.createTempFile("save_some_tasks_to_file_test", ".csv");
         tempFile.deleteOnExit();
         FileBackedTaskManager manager = new FileBackedTaskManager(tempFile);

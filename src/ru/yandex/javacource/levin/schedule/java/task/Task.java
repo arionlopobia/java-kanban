@@ -1,5 +1,7 @@
 package ru.yandex.javacource.levin.schedule.java.task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -9,6 +11,8 @@ public class Task {
     protected String description;
     protected StatusOfTask status;
     protected TaskType taskType;
+    protected Duration duration;
+    protected LocalDateTime startTime;
 
 
     public Task(String name, String description, StatusOfTask status, TaskType taskType) {
@@ -16,6 +20,8 @@ public class Task {
         this.description = description;
         this.status = status;
         this.taskType = taskType;
+        this.duration = Duration.ZERO;
+        this.startTime = null;
     }
 
     public Task copy() {
@@ -60,6 +66,33 @@ public class Task {
         return taskType;
     }
 
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        if(startTime == null || duration == null) {
+            throw new IllegalStateException("Start time and end time must be set");
+        }
+        return startTime.plus(duration);
+    }
+
+    public long getDurationInMinutes() {
+        return duration != null ? duration.toMinutes() : 0;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -67,6 +100,8 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
+                ", duration=" + getDurationInMinutes() +
+                ", startTime=" + startTime +
                 '}';
     }
 

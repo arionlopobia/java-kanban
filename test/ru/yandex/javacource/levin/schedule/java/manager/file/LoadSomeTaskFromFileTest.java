@@ -4,7 +4,9 @@ import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
 import ru.yandex.javacource.levin.schedule.java.task.Task;
 import ru.yandex.javacource.levin.schedule.java.task.TaskType;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,4 +40,6 @@ public class LoadSomeTaskFromFileTest {
         assertEquals(FileBackedTaskManager.toString(task2), FileBackedTaskManager.toString(tasksFromFile.get(1)), "Вторая задача записана некорректно");
         assertEquals(FileBackedTaskManager.toString(task3), FileBackedTaskManager.toString(tasksFromFile.get(2)), "Третья задача записана некорректно");
     }
+
+
 }

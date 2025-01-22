@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
@@ -68,7 +70,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 final Epic epic = taskManager.epics.get(subtask.getEpicId());
                 epic.addSubtaskId(subtask.getId());
             }
-           taskManager.idCounter = generatorId;
+            taskManager.idCounter = generatorId;
         } catch (IOException e) {
             throw new ManagerSaveException("Can't read form file: " + file.getName(), e);
         }
@@ -91,9 +93,16 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     protected static String toString(Task task) {
-        return task.getId() + "," + task.getTaskType() + "," + task.getName() + "," + task.getStatus() + ","
-                + task.getDescription() + "," + (task.getTaskType().equals(TaskType.SUBTASK) ? ((SubTask) task).getEpicId() : "");
+        return task.getId() + "," +
+                task.getTaskType() + "," +
+                task.getName() + "," +
+                task.getStatus() + "," +
+                task.getDescription() + "," +
+                (task.getDurationInMinutes() > 0 ? task.getDurationInMinutes() : "") + "," +
+                (task.getStartTime() != null ? task.getStartTime() : "") + "," +
+                (task.getTaskType().equals(TaskType.SUBTASK) ? ((SubTask) task).getEpicId() : "");
     }
+
 
     protected static Task fromString(String value) {
         String[] parts = value.split(",");
@@ -104,26 +113,44 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         StatusOfTask status = StatusOfTask.valueOf(parts[3]);
         String description = parts[4];
 
+        long durationInMinutes = parts.length > 5 && !parts[5].isEmpty()
+                ? Long.parseLong(parts[5])
+                : 0;
+
+        LocalDateTime startTime = parts.length > 6 && !parts[6].isEmpty()
+                ? LocalDateTime.parse(parts[6])
+                : null;
+
+        Task task;
+
         switch (taskType) {
             case TASK:
-                Task task = new Task(name, description, status, taskType);
-                task.setId(id);
-                return task;
+                task = new Task(name, description, status, taskType);
+                break;
+
             case EPIC:
-                Epic epic = new Epic(name, description, status, taskType);
-                epic.setId(id);
-                return epic;
+                task = new Epic(name, description, status, taskType);
+                break;
+
             case SUBTASK:
-                if (parts.length < 6) {
+                if (parts.length < 8 || parts[7].isEmpty()) {
                     throw new IllegalArgumentException("SubTask должен содержать EpicId: " + value);
                 }
-                int epicId = Integer.parseInt(parts[5]);
-                SubTask subtask = new SubTask(name, description, status, taskType, epicId);
-                subtask.setId(id);
-                return subtask;
+                int epicId = Integer.parseInt(parts[7]);
+                task = new SubTask(name, description, status, taskType, epicId);
+                break;
+
             default:
                 throw new IllegalArgumentException("Неизвестный taskType: " + taskType);
         }
+
+        task.setId(id);
+        if (durationInMinutes > 0) {
+            task.setDuration(Duration.ofMinutes(durationInMinutes));
+        }
+        task.setStartTime(startTime);
+
+        return task;
     }
 
 
