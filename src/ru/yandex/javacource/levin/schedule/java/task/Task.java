@@ -83,7 +83,7 @@ public class Task {
     }
 
     public LocalDateTime getEndTime() {
-        if(startTime == null || duration == null) {
+        if (startTime == null || duration == null) {
             throw new IllegalStateException("Start time and end time must be set");
         }
         return startTime.plus(duration);

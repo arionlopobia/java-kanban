@@ -69,7 +69,7 @@ public class Epic extends Task {
     }
 
     @Override
-    public  long getDurationInMinutes() {
+    public long getDurationInMinutes() {
         return duration != null ? duration.toMinutes() : 0;
     }
 
@@ -85,7 +85,7 @@ public class Epic extends Task {
 
     @Override
     public LocalDateTime getEndTime() {
-        if(startTime == null || duration == null) {
+        if (startTime == null || duration == null) {
             throw new IllegalStateException("Start time and end time must be set");
         }
         return startTime.plus(duration);
@@ -119,7 +119,6 @@ public class Epic extends Task {
                 .max(LocalDateTime::compareTo)
                 .orElse(null);
     }
-
 
 
 }

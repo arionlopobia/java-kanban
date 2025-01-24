@@ -1,14 +1,14 @@
 package ru.yandex.javacource.levin.schedule.java.manager.file;
+
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
 import ru.yandex.javacource.levin.schedule.java.task.Task;
 import ru.yandex.javacource.levin.schedule.java.task.TaskType;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoadSomeTaskFromFileTest {

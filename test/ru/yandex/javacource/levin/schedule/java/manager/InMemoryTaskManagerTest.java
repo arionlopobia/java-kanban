@@ -106,18 +106,18 @@ class InMemoryTaskManagerTest {
 
     @Test
     void shouldCalculateEpicStatusAllNew() {
-            InMemoryTaskManager manager = new InMemoryTaskManager();
-            Epic epic = new Epic("Epic 1", "Description", StatusOfTask.NEW, TaskType.EPIC);
-            manager.createEpic(epic);
+        InMemoryTaskManager manager = new InMemoryTaskManager();
+        Epic epic = new Epic("Epic 1", "Description", StatusOfTask.NEW, TaskType.EPIC);
+        manager.createEpic(epic);
 
-            SubTask subtask1 = new SubTask("Subtask 1", "Description", StatusOfTask.NEW, TaskType.SUBTASK, epic.getId());
-            SubTask subtask2 = new SubTask("Subtask 2", "Description", StatusOfTask.NEW, TaskType.SUBTASK, epic.getId());
-            manager.createSubtask(subtask1);
-            manager.createSubtask(subtask2);
+        SubTask subtask1 = new SubTask("Subtask 1", "Description", StatusOfTask.NEW, TaskType.SUBTASK, epic.getId());
+        SubTask subtask2 = new SubTask("Subtask 2", "Description", StatusOfTask.NEW, TaskType.SUBTASK, epic.getId());
+        manager.createSubtask(subtask1);
+        manager.createSubtask(subtask2);
 
-            assertEquals(StatusOfTask.NEW, manager.getEpic(epic.getId()).getStatus(),
-                    "Epic status should be NEW when all subtasks are NEW.");
-        }
+        assertEquals(StatusOfTask.NEW, manager.getEpic(epic.getId()).getStatus(),
+                "Epic status should be NEW when all subtasks are NEW.");
+    }
 
     @Test
     void shouldCalculateEpicStatusWhenAllSubtasksAreDone() {

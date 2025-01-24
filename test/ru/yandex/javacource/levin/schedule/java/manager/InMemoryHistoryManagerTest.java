@@ -89,6 +89,5 @@ class InMemoryHistoryManagerTest {
         assertFalse(manager.getHistory().contains(task1), "Task should be removed from history after deletion.");
     }
 
-    
 
 }
