@@ -29,14 +29,21 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createTask(Task task) {
+        if (hasOverlap(task)) {
+            throw new IllegalArgumentException("Задача пересекается по времени с другой задачей!");
+        }
         int id = generateId();
         task.setId(id);
         tasks.put(id, task);
         addToPrioritizedTasks(task);
     }
 
+
     @Override
     public void createEpic(Epic epic) {
+        if (hasOverlap(epic)) {
+            throw new IllegalArgumentException("Задача пересекается по времени с другой задачей!");
+        }
         int id = generateId();
         epic.setId(id);
         epics.put(id, epic);
@@ -46,6 +53,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Integer createSubtask(SubTask subtask) {
+        if (hasOverlap(subtask)) {
+            throw new IllegalArgumentException("Задача пересекается по времени с другой задачей!");
+        }
         int epicId = subtask.getEpicId();
         Epic epic = epics.get(epicId);
         if (epic == null) {
