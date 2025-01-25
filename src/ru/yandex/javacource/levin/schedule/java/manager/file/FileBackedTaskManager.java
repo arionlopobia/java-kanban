@@ -103,7 +103,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 (task.getTaskType().equals(TaskType.SUBTASK) ? ((SubTask) task).getEpicId() : "");
     }
 
-
     protected static Task fromString(String value) {
         String[] parts = value.split(",");
 
@@ -125,11 +124,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         switch (taskType) {
             case TASK:
-                task = new Task(name, description, status, taskType);
+                task = new Task(name, description, status);
                 break;
 
             case EPIC:
-                task = new Epic(name, description, status, taskType);
+                task = new Epic(name, description);
                 break;
 
             case SUBTASK:
@@ -137,7 +136,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     throw new IllegalArgumentException("SubTask должен содержать EpicId: " + value);
                 }
                 int epicId = Integer.parseInt(parts[7]);
-                task = new SubTask(name, description, status, taskType, epicId);
+                task = new SubTask(name, description, status, epicId);
                 break;
 
             default:
@@ -152,7 +151,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         return task;
     }
-
 
     @Override
     public void createTask(Task task) {

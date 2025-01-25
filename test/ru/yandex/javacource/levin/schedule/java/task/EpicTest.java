@@ -11,14 +11,11 @@ class EpicTest {
 
     @Test
     public void shouldReturnSameEpicWhenRequestedByIdTwice() {
-
         manager = new InMemoryTaskManager();
 
-
-        Epic epic = new Epic("Epic 1", "Description 1", StatusOfTask.NEW, TaskType.EPIC);
+        Epic epic = new Epic("Epic 1", "Description 1");
         manager.createEpic(epic);
         int epicId = epic.getId();
-
 
         Epic firstRetrievedTask = manager.getEpic(epicId);
         Epic secondRetrievedTask = manager.getEpic(epicId);
@@ -28,13 +25,12 @@ class EpicTest {
 
 
     @Test
-    void CannotAddSelfAsSubtaskTest() {
-        Epic epic = new Epic("Epic 1", "It is my first Epic", StatusOfTask.NEW, TaskType.EPIC);
+    void cannotAddSelfAsSubtaskTest() {
+        Epic epic = new Epic("Epic 1", "It is my first Epic");
         int epicId = epic.getId();
 
         epic.addSubtaskId(epicId);
         System.out.println(epic.getSubtasks());
-
 
         assertTrue(epic.getSubtasks().isEmpty(), "Epic cant be in subTask List");
     }

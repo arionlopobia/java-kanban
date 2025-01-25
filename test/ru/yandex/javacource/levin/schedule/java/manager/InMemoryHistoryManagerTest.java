@@ -20,7 +20,7 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void shouldPreserveTaskStateWhenAddedToHistory() {
-        Task originalTask = new Task("Task 1", "Description 1", StatusOfTask.NEW, TaskType.TASK);
+        Task originalTask = new Task("Task 1", "Description 1", StatusOfTask.NEW);
         originalTask.setId(1);
 
         historyManager.addHistory(originalTask);
@@ -40,9 +40,9 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void shouldRemoveTaskFromHistory() {
-        Task task1 = new Task("Task 1", "Description 1", StatusOfTask.NEW, TaskType.TASK);
+        Task task1 = new Task("Task 1", "Description 1", StatusOfTask.NEW);
         task1.setId(1);
-        Task task2 = new Task("Task 2", "Description 2", StatusOfTask.NEW, TaskType.TASK);
+        Task task2 = new Task("Task 2", "Description 2", StatusOfTask.NEW);
         task2.setId(2);
         historyManager.addHistory(task1);
         historyManager.addHistory(task2);
@@ -56,7 +56,7 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void shouldNotAddDuplicateTasksToHistory() {
-        Task task = new Task("Task 1", "Description 1", StatusOfTask.NEW, TaskType.TASK);
+        Task task = new Task("Task 1", "Description 1", StatusOfTask.NEW);
         task.setId(1);
 
         historyManager.addHistory(task);
@@ -77,8 +77,8 @@ class InMemoryHistoryManagerTest {
     void shouldRemoveTaskFromHistoryCorrectly() {
         InMemoryTaskManager manager = new InMemoryTaskManager();
 
-        Task task1 = new Task("Task 1", "Description", StatusOfTask.NEW, TaskType.TASK);
-        Task task2 = new Task("Task 2", "Description", StatusOfTask.NEW, TaskType.TASK);
+        Task task1 = new Task("Task 1", "Description", StatusOfTask.NEW);
+        Task task2 = new Task("Task 2", "Description", StatusOfTask.NEW);
         manager.createTask(task1);
         manager.createTask(task2);
 

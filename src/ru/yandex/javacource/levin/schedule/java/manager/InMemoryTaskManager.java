@@ -26,7 +26,6 @@ public class InMemoryTaskManager implements TaskManager {
         prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime, Comparator.nullsLast(Comparator.naturalOrder())));
     }
 
-
     @Override
     public void createTask(Task task) {
         if (hasOverlap(task)) {
@@ -38,7 +37,6 @@ public class InMemoryTaskManager implements TaskManager {
         addToPrioritizedTasks(task);
     }
 
-
     @Override
     public void createEpic(Epic epic) {
         if (hasOverlap(epic)) {
@@ -49,7 +47,6 @@ public class InMemoryTaskManager implements TaskManager {
         epics.put(id, epic);
         addToPrioritizedTasks(epic);
     }
-
 
     @Override
     public Integer createSubtask(SubTask subtask) {
@@ -69,7 +66,6 @@ public class InMemoryTaskManager implements TaskManager {
         addToPrioritizedTasks(subtask);
         return id;
     }
-
 
     @Override
     public ArrayList<Task> getTasks() {
@@ -100,7 +96,6 @@ public class InMemoryTaskManager implements TaskManager {
         tasks.clear();
     }
 
-
     @Override
     public void dealeateEpics() {
         subtasks.values().forEach(this::removeFromPrioritizedTasks);
@@ -108,7 +103,6 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks.clear();
         epics.clear();
     }
-
 
     @Override
     public void deleteSubtasks() {
@@ -120,7 +114,6 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks.values().forEach(this::removeFromPrioritizedTasks);
         subtasks.clear();
     }
-
 
     @Override
     public Task getTask(int id) {
@@ -300,7 +293,6 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setStatus(StatusOfTask.IN_PROGRESS);
         }
     }
-
 
     protected int generateId() {
         return ++idCounter;
