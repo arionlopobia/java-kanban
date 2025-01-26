@@ -16,12 +16,11 @@ public class SaveSomeTasksToFileTest {
 
     @Test
     public void testSaveSomeTasksToFile() throws IOException {
-        // Создаем временный файл для теста
         File tempFile = File.createTempFile("save_some_tasks_to_file_test", ".csv");
         tempFile.deleteOnExit();
         FileBackedTaskManager manager = new FileBackedTaskManager(tempFile);
-        Task task1 = new Task("Task 1", "Description 1", StatusOfTask.NEW, TaskType.TASK);
-        Task task2 = new Task("Task 2", "Description 2", StatusOfTask.IN_PROGRESS, TaskType.TASK);
+        Task task1 = new Task("Task 1", "Description 1", StatusOfTask.NEW);
+        Task task2 = new Task("Task 2", "Description 2", StatusOfTask.IN_PROGRESS);
 
         manager.createTask(task1);
         manager.createTask(task2);

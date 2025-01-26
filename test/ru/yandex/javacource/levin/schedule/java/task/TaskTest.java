@@ -10,14 +10,11 @@ class TaskTest {
 
     @Test
     public void shouldReturnSameTaskWhenRequestedByIdTwice() {
-
         manager = new InMemoryTaskManager();
 
-
-        Task task = new Task("Task 1", "Description 1", StatusOfTask.NEW, TaskType.TASK);
+        Task task = new Task("Task 1", "Description 1", StatusOfTask.NEW);
         manager.createTask(task);
-        int taskId = task.getId(); // Получаем id задачи
-
+        int taskId = task.getId();
 
         Task firstRetrievedTask = manager.getTask(taskId);
         Task secondRetrievedTask = manager.getTask(taskId);
