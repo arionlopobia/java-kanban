@@ -6,6 +6,8 @@ import ru.yandex.javacource.levin.schedule.java.task.Task;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,10 +21,9 @@ public class LoadSomeTaskFromFileTest {
 
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(tempFile);
 
-        Task task1 = new Task("Task1", "Description 1", StatusOfTask.NEW);
-        Task task2 = new Task("Task2", "Description 2", StatusOfTask.NEW);
-        Task task3 = new Task("Task3", "Description 3", StatusOfTask.NEW);
-
+        Task task1 = new Task("Task1", "Description 1", StatusOfTask.NEW, Duration.ofMinutes(30), LocalDateTime.now());
+        Task task2 = new Task("Task2", "Description 2", StatusOfTask.NEW, Duration.ofMinutes(45), LocalDateTime.now().plusHours(1));
+        Task task3 = new Task("Task3", "Description 3", StatusOfTask.NEW, Duration.ofMinutes(60), LocalDateTime.now().plusHours(2));
         fileBackedTaskManager.createTask(task1);
         fileBackedTaskManager.createTask(task2);
         fileBackedTaskManager.createTask(task3);

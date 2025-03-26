@@ -8,28 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Epic extends Task {
-    public List<Integer> subtaskIds;
-    protected Duration duration;
-    protected LocalDateTime startTime;
-    protected LocalDateTime endTime;
+    private List<Integer> subtaskIds;
+    private LocalDateTime endTime;
 
 
-    public Epic(String name, String description) {
-        super(name, description, StatusOfTask.NEW);
+    public Epic(String name, String description, StatusOfTask status, Duration duration, LocalDateTime startTime) {
+        super(name, description, status, duration, startTime);
         this.subtaskIds = new ArrayList<>();
-        this.duration = Duration.ZERO;
-        this.startTime = null;
         this.endTime = null;
     }
 
     public void addSubtaskId(int subtaskId) {
-        if (subtaskId != this.id) {
+        if (subtaskId != this.id && !subtaskIds.contains(subtaskId)) {
             subtaskIds.add(subtaskId);
         }
     }
 
     public List<Integer> getSubtasks() {
-        return subtaskIds;
+        return new ArrayList<>(subtaskIds);
     }
 
     @Override
@@ -39,12 +35,12 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "{" +
+        return "Epic{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
-                ", subtasks=" + subtaskIds.size() + " subtasks" +
+                ", subtasks=" + subtaskIds.size() + " шт." +
                 '}';
     }
 
@@ -52,7 +48,10 @@ public class Epic extends Task {
         subtaskIds.remove(Integer.valueOf(id));
     }
 
-    public ArrayList<Integer> getSubtaskIds() {
+    public List<Integer> getSubtaskIds() {
+        if (subtaskIds == null) {
+            subtaskIds = new ArrayList<>();
+        }
         return new ArrayList<>(subtaskIds);
     }
 
@@ -60,8 +59,9 @@ public class Epic extends Task {
         subtaskIds.clear();
     }
 
-    public void setSubtaskIds(ArrayList<Integer> subtaskIds) {
-        this.subtaskIds = new ArrayList<>(subtaskIds);
+    public void setSubtaskIds(List<Integer> subtaskIds) {
+        this.subtaskIds.clear();
+        this.subtaskIds.addAll(subtaskIds);
     }
 
     public StatusOfTask getEpicStatus() {
@@ -73,26 +73,8 @@ public class Epic extends Task {
     }
 
     @Override
-    public long getDurationInMinutes() {
-        return duration != null ? duration.toMinutes() : 0;
-    }
-
-    @Override
-    public Duration getDuration() {
-        return duration;
-    }
-
-    @Override
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    @Override
     public LocalDateTime getEndTime() {
-        if (startTime == null || duration == null) {
-            throw new IllegalStateException("Start time and end time must be set");
-        }
-        return startTime.plus(duration);
+        return endTime;
     }
 
     public void updateFields(InMemoryTaskManager taskManager) {
@@ -106,25 +88,20 @@ public class Epic extends Task {
         }
 
         this.duration = subTasks.stream()
-                .filter(subTask -> subTask.getDuration() != null)
                 .map(SubTask::getDuration)
+                .filter(d -> d != null)
                 .reduce(Duration.ZERO, Duration::plus);
 
-
         this.startTime = subTasks.stream()
-                .filter(subTask -> subTask.getStartTime() != null)
                 .map(SubTask::getStartTime)
+                .filter(s -> s != null)
                 .min(LocalDateTime::compareTo)
                 .orElse(null);
 
         this.endTime = subTasks.stream()
-                .filter(subTask -> subTask.getEndTime() != null)
                 .map(SubTask::getEndTime)
+                .filter(e -> e != null)
                 .max(LocalDateTime::compareTo)
                 .orElse(null);
     }
-
-
 }
-
-

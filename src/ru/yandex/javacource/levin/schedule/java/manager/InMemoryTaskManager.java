@@ -67,6 +67,7 @@ public class InMemoryTaskManager implements TaskManager {
         return id;
     }
 
+
     @Override
     public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks.values());
@@ -118,7 +119,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTask(int id) {
         Task task = tasks.get(id);
-        historyManager.addHistory(task);
+
         return task;
     }
 
@@ -140,13 +141,15 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateTask(Task task) {
         int id = task.getId();
         Task savedTask = tasks.get(id);
+
         if (savedTask == null) {
-            return;
+            throw new IllegalArgumentException("Task not found");
         }
+
         prioritizedTasks.remove(savedTask);
 
         if (hasOverlap(task)) {
-            throw new IllegalArgumentException("Обновляемая задача пересекается по времени с другой задачей!");
+            throw new IllegalArgumentException("The updated task overlaps with another task!");
         }
 
         if (task instanceof Epic) {
@@ -331,11 +334,16 @@ public class InMemoryTaskManager implements TaskManager {
 
         return prioritizedTasks.stream()
                 .filter(existingTask -> existingTask.getId() != task.getId())
-                .anyMatch(existingTask ->
-                        task.getStartTime().isBefore(existingTask.getEndTime()) &&
-                                task.getEndTime().isAfter(existingTask.getStartTime())
-                );
+                .anyMatch(existingTask -> {
+                    if (existingTask.getStartTime() == null || existingTask.getEndTime() == null) {
+                        return false;
+                    }
+
+                    return task.getStartTime().isBefore(existingTask.getEndTime()) &&
+                            task.getEndTime().isAfter(existingTask.getStartTime());
+                });
     }
+
 
     @Override
     public boolean hasAnyOverlaps() {

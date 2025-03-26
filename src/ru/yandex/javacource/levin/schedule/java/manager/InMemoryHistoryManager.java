@@ -1,6 +1,5 @@
 package ru.yandex.javacource.levin.schedule.java.manager;
 
-
 import ru.yandex.javacource.levin.schedule.java.task.Task;
 
 import java.util.ArrayList;
@@ -29,20 +28,56 @@ public class InMemoryHistoryManager implements HistoryManager {
     private Node head;
     private Node tail;
 
+    private void addNodeToFront(Node newNode) {
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+    }
+
     @Override
     public void addHistory(Task task) {
-        if (task == null) {
+        if (task == null || task.getId() == 0) {
             return;
         }
 
         if (nodeMap.containsKey(task.getId())) {
-            remove(task.getId());
+            removeNode(nodeMap.get(task.getId()));
         }
 
-        Node newNode = new Node(task.copy());
-        linkLast(newNode);
+        // Создаем копию задачи перед добавлением в историю
+        Task taskCopy = task.copy(); // Используйте ваш метод copy(), если он есть
+
+        Node newNode = new Node(taskCopy);  // Добавляем копию задачи в новый узел
+        addNodeToFront(newNode);
+
         nodeMap.put(task.getId(), newNode);
+
+        history.add(taskCopy); // Добавляем копию в историю
     }
+
+
+
+    @Override
+    public List<Task> getHistory() {
+        List<Task> historyList = new ArrayList<>();
+        Node current = head;
+        System.out.println(head);
+        while (current != null) {
+            historyList.add(current.task);
+            current = current.next;
+        }
+        System.out.println("Current history: " + historyList);
+        for (Task task : historyList) {
+            System.out.println("Task: " + task);
+        }
+        return historyList;
+    }
+
 
     @Override
     public void remove(int id) {
@@ -52,34 +87,20 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    @Override
-    public List<Task> getHistory() {
-        List<Task> history = new ArrayList<>();
-        Node current = head;
-        while (current != null) {
-            history.add(current.task);
-            current = current.next;
-        }
-        return history;
-    }
-
     private void removeNode(Node node) {
-        if (node == null) return;
-
-        Node prevNode = node.prev;
-        Node nextNode = node.next;
-
-        if (prevNode != null) {
-            prevNode.next = nextNode;
+        if (node.prev != null) {
+            node.prev.next = node.next;
         } else {
-            head = nextNode;
+            head = node.next;
         }
 
-        if (nextNode != null) {
-            nextNode.prev = prevNode;
+        if (node.next != null) {
+            node.next.prev = node.prev;
         } else {
-            tail = prevNode;
+            tail = node.prev;
         }
+
+        nodeMap.remove(node.task.getId());
     }
 
     private void linkLast(Node node) {

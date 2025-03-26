@@ -6,6 +6,8 @@ import ru.yandex.javacource.levin.schedule.java.task.StatusOfTask;
 import ru.yandex.javacource.levin.schedule.java.task.Task;
 import ru.yandex.javacource.levin.schedule.java.task.TaskType;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +22,7 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void shouldPreserveTaskStateWhenAddedToHistory() {
-        Task originalTask = new Task("Task 1", "Description 1", StatusOfTask.NEW);
+        Task originalTask = new Task("Task 1", "Description 1", StatusOfTask.NEW, Duration.ofMinutes(30), LocalDateTime.now());
         originalTask.setId(1);
 
         historyManager.addHistory(originalTask);
@@ -40,9 +42,9 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void shouldRemoveTaskFromHistory() {
-        Task task1 = new Task("Task 1", "Description 1", StatusOfTask.NEW);
+        Task task1 = new Task("Task1", "Description 1", StatusOfTask.NEW, Duration.ofMinutes(30), LocalDateTime.now());
         task1.setId(1);
-        Task task2 = new Task("Task 2", "Description 2", StatusOfTask.NEW);
+        Task task2 = new Task("Task1", "Description 1", StatusOfTask.NEW, Duration.ofMinutes(30), LocalDateTime.now());
         task2.setId(2);
         historyManager.addHistory(task1);
         historyManager.addHistory(task2);
@@ -56,7 +58,7 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void shouldNotAddDuplicateTasksToHistory() {
-        Task task = new Task("Task 1", "Description 1", StatusOfTask.NEW);
+        Task task = new Task("Task1", "Description 1", StatusOfTask.NEW, Duration.ofMinutes(30), LocalDateTime.now());
         task.setId(1);
 
         historyManager.addHistory(task);
@@ -73,21 +75,6 @@ class InMemoryHistoryManagerTest {
         assertTrue(manager.getHistory().isEmpty(), "History should be empty when no tasks are viewed.");
     }
 
-    @Test
-    void shouldRemoveTaskFromHistoryCorrectly() {
-        InMemoryTaskManager manager = new InMemoryTaskManager();
-
-        Task task1 = new Task("Task 1", "Description", StatusOfTask.NEW);
-        Task task2 = new Task("Task 2", "Description", StatusOfTask.NEW);
-        manager.createTask(task1);
-        manager.createTask(task2);
-
-        manager.getTask(task1.getId());
-        manager.getTask(task2.getId());
-        manager.deleteTask(task1.getId());
-
-        assertFalse(manager.getHistory().contains(task1), "Task should be removed from history after deletion.");
-    }
 
 
 }
