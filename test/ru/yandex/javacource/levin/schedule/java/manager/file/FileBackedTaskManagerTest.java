@@ -18,7 +18,7 @@ public class FileBackedTaskManagerTest {
             FileBackedTaskManager.loadFromFile(invalidFile);
         }, "Должно быть выброшено исключение, если файл не найден.");
 
-        assertEquals("Can't read form file: invalid_file_path.csv", exception.getMessage());
+        assertEquals("Can't read from file: invalid_file_path.csv", exception.getMessage());
     }
 
 

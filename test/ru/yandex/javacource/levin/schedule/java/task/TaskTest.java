@@ -5,6 +5,7 @@ import ru.yandex.javacource.levin.schedule.java.manager.InMemoryTaskManager;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,8 +50,9 @@ class TaskTest {
         assertEquals("Updated Description", retrievedUpdatedTask.getDescription(), "Task description should be updated");
         assertEquals(StatusOfTask.IN_PROGRESS, retrievedUpdatedTask.getStatus(), "Task status should be updated");
         assertEquals(Duration.ofMinutes(45), retrievedUpdatedTask.getDuration(), "Task duration should be updated");
-        assertEquals(LocalDateTime.now().plusMinutes(60), retrievedUpdatedTask.getStartTime(), "Task start time should be updated");
 
+        // Округляем время до секунд для корректного сравнения
+        assertEquals(updatedTask.getStartTime().truncatedTo(ChronoUnit.SECONDS), retrievedUpdatedTask.getStartTime().truncatedTo(ChronoUnit.SECONDS), "Task start time should be updated");
+    }
 
-}
 }
