@@ -10,12 +10,11 @@ import ru.yandex.javacource.levin.schedule.java.task.Task;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
+
 
 public class TaskHandler extends BaseHttpHandler {
     private final HistoryManager historyManager;
