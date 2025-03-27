@@ -13,16 +13,16 @@ public class Task {
     protected Duration duration;
     protected LocalDateTime startTime;
 
-    public Task(String name, String description, StatusOfTask status) {
+    public Task(String name, String description, StatusOfTask status, Duration duration, LocalDateTime startTime) {
         this.name = name;
         this.description = description;
         this.status = status;
-        this.duration = Duration.ZERO;
-        this.startTime = null;
+        this.duration = duration != null ? duration : Duration.ZERO;
+        this.startTime = startTime;
     }
 
     public Task copy() {
-        Task copy = new Task(this.name, this.description, this.status);
+        Task copy = new Task(this.name, this.description, this.status, this.duration, this.startTime);
         copy.setId(this.id);
         return copy;
     }
@@ -110,11 +110,8 @@ public class Task {
         return id == task.id;
     }
 
-
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
 }

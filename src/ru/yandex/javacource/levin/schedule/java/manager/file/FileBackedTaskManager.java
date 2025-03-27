@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File autosaveFile;
-    private static final String HEADER = "id,type,name,status,description,epic";
+    private static final String HEADER = "id,type,name,status,description,duration,startTime,epic";
 
     public FileBackedTaskManager(File autosaveFile) {
         super();
@@ -72,7 +72,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
             taskManager.idCounter = generatorId;
         } catch (IOException e) {
-            throw new ManagerSaveException("Can't read form file: " + file.getName(), e);
+            throw new ManagerSaveException("Can't read from file: " + file.getName(), e);
         }
         return taskManager;
     }
@@ -112,9 +112,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         StatusOfTask status = StatusOfTask.valueOf(parts[3]);
         String description = parts[4];
 
-        long durationInMinutes = parts.length > 5 && !parts[5].isEmpty()
-                ? Long.parseLong(parts[5])
-                : 0;
+        Duration duration = parts.length > 5 && !parts[5].isEmpty()
+                ? Duration.ofMinutes(Long.parseLong(parts[5]))
+                : Duration.ZERO;
 
         LocalDateTime startTime = parts.length > 6 && !parts[6].isEmpty()
                 ? LocalDateTime.parse(parts[6])
@@ -124,11 +124,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         switch (taskType) {
             case TASK:
-                task = new Task(name, description, status);
+                task = new Task(name, description, status, duration, startTime);
                 break;
 
             case EPIC:
-                task = new Epic(name, description);
+                task = new Epic(name, description, status, duration, startTime);
                 break;
 
             case SUBTASK:
@@ -136,7 +136,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     throw new IllegalArgumentException("SubTask должен содержать EpicId: " + value);
                 }
                 int epicId = Integer.parseInt(parts[7]);
-                task = new SubTask(name, description, status, epicId);
+                task = new SubTask(name, description, status, epicId, duration, startTime);
                 break;
 
             default:
@@ -144,9 +144,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
 
         task.setId(id);
-        if (durationInMinutes > 0) {
-            task.setDuration(Duration.ofMinutes(durationInMinutes));
-        }
+        task.setDuration(duration);
         task.setStartTime(startTime);
 
         return task;
@@ -207,4 +205,3 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 }
-

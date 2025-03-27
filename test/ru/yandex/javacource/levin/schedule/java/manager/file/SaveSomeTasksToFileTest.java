@@ -7,6 +7,8 @@ import ru.yandex.javacource.levin.schedule.java.task.TaskType;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +21,9 @@ public class SaveSomeTasksToFileTest {
         File tempFile = File.createTempFile("save_some_tasks_to_file_test", ".csv");
         tempFile.deleteOnExit();
         FileBackedTaskManager manager = new FileBackedTaskManager(tempFile);
-        Task task1 = new Task("Task 1", "Description 1", StatusOfTask.NEW);
-        Task task2 = new Task("Task 2", "Description 2", StatusOfTask.IN_PROGRESS);
+        Task task1 = new Task("Task1", "Description 1", StatusOfTask.NEW, Duration.ofMinutes(30), LocalDateTime.now());
+        Task task2 = new Task("Task2", "Description 2", StatusOfTask.NEW, Duration.ofMinutes(45), LocalDateTime.now().plusHours(1));
+
 
         manager.createTask(task1);
         manager.createTask(task2);
